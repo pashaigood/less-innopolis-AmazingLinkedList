@@ -13,36 +13,34 @@ public class AmazingLinkedList<T> {
         return size;
     }
 
-    public boolean add(T value) {
+    public void add(T value) {
         addLast(value);
-        return true;
     }
 
-    public boolean add(int index, T value) {
+    public void add(int index, T value) {
         checkIndex(index);
         if (index == size) {
             addLast(value);
         } else {
             insertBefore(value, findNodeAt(index));
         }
-        return true;
     }
 
     private void checkIndex(int index) {
         if (index > size) {
-            throw new IndexOutOfBoundsException("Index: " + index + "is to big. Size: " + size);
+            throw new IndexOutOfBoundsException("Index: " + index + " is to big. Size: " + size);
         }
     }
 
     private void addLast(T value) {
-        AmazingNode<T> last = this.last;
-        AmazingNode<T> newNode = new AmazingNode<>(last, value, null);
+        AmazingNode<T> currentLast = last;
+        AmazingNode<T> newNode = new AmazingNode<>(currentLast, value, null);
 
-        this.last = newNode;
-        if (last == null) {
+        last = newNode;
+        if (currentLast == null) {
             first = newNode;
         } else {
-            last.setPrev(newNode);
+            currentLast.setNext(newNode);
         }
 
         size++;
@@ -50,14 +48,16 @@ public class AmazingLinkedList<T> {
     }
 
     private void insertBefore(T value, AmazingNode<T> node) {
-        final AmazingNode<T> pred = node.getPrev();
-        final AmazingNode<T> newNode = new AmazingNode<>(pred, value, node);
+        final AmazingNode<T> prev = node.getPrev();
+        final AmazingNode<T> newNode = new AmazingNode<>(prev, value, node);
         node.setPrev(newNode);
-        if (pred == null) {
+
+        if (prev == null) {
             first = newNode;
         } else {
-            pred.setNext(newNode);
+            prev.setNext(newNode);
         }
+
         size++;
         pick = size / 2;
     }
@@ -77,11 +77,57 @@ public class AmazingLinkedList<T> {
         }
     }
 
-    public boolean remove(int index) {
-        return false;
+    public void remove(int index) {
+        checkIndex(index);
+        AmazingNode<T> nodeToRemove = findNodeAt(index);
+        if (nodeToRemove == null) {
+            throw new IndexOutOfBoundsException("Should not find node at: " + index);
+        }
+
+        removeNode(nodeToRemove);
     }
 
-    public boolean containts() {
+    public void remove(T value) {
+        AmazingNode<T> node = first;
+
+        while (node != null) {
+            if (node.getValue().equals(value)) {
+                removeNode(node);
+            }
+            node = node.getNext();
+        }
+    }
+
+    private void removeNode(AmazingNode<T> nodeToRemove) {
+        AmazingNode<T> prevNode = nodeToRemove.getPrev();
+        AmazingNode<T> nextNode = nodeToRemove.getNext();
+
+        if (nextNode == null) {
+            last = prevNode;
+            prevNode.setNext(null);
+        } else if (prevNode == null) {
+            first = nextNode;
+        }
+        else {
+            prevNode.setNext(nextNode);
+            nextNode.setPrev(prevNode);
+        }
+
+        size--;
+        pick = size / 2;
+    }
+
+    public boolean contains(T value) {
+        AmazingNode<T> node = first;
+
+        while (node != null) {
+            if (node.getValue().equals(value)) {
+                return true;
+            }
+
+            node = node.getNext();
+        }
+
         return false;
     }
 }

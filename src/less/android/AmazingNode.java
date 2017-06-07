@@ -30,4 +30,9 @@ public class AmazingNode<E> {
     public E getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "Node with value: " + value;
+    }
 }
