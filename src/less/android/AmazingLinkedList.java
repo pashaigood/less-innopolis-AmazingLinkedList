@@ -43,8 +43,7 @@ public class AmazingLinkedList<T> {
             currentLast.setNext(newNode);
         }
 
-        size++;
-        pick = size / 2;
+        incrementSize();
     }
 
     private void insertBefore(T value, AmazingNode<T> node) {
@@ -58,8 +57,7 @@ public class AmazingLinkedList<T> {
             prev.setNext(newNode);
         }
 
-        size++;
-        pick = size / 2;
+        incrementSize();
     }
 
     private AmazingNode<T> findNodeAt(int index) {
@@ -113,9 +111,19 @@ public class AmazingLinkedList<T> {
             nextNode.setPrev(prevNode);
         }
 
+        decrementSize();
+    }
+
+    private void incrementSize() {
+        size++;
+        pick = size / 2;
+    }
+
+    private void decrementSize() {
         size--;
         pick = size / 2;
     }
+
 
     public boolean contains(T value) {
         AmazingNode<T> node = first;
