@@ -34,7 +34,7 @@ public class Main {
         }
 
         if (! list1.add(0, 3)) {
-            System.err.println("Should add a second item.");
+            System.err.println("Should add item at 0 item to the empty list.");
         } else if (list1.getSize() != 1) {
             System.err.println("The size should be 1. Has: " + list1.getSize());
         }
@@ -47,9 +47,25 @@ public class Main {
         }
 
         if (! list1.add(1, 3)) {
-            System.err.println("Should add a second item.");
+            System.err.println("Should add a item at 1 index.");
         } else if (list1.getSize() != 4) {
             System.err.println("The size should be 4. Has: " + list1.getSize());
         }
+
+        if (! list1.add(0, 33)) {
+            System.err.println("Should add a item at first index.");
+        } else if (list1.getSize() != 5) {
+            System.err.println("The size should be 5. Has: " + list1.getSize());
+        }
+
+        if (! list1.add(4, 33)) {
+            System.err.println("Should add a item last index.");
+        } else if (list1.getSize() != 6) {
+            System.err.println("The size should be 6. Has: " + list1.getSize());
+        }
+    }
+
+    private static void testRemoveAtIndex() {
+
     }
 }

@@ -70,7 +70,6 @@ public class AmazingLinkedList<T> {
             return x;
         } else {
             AmazingNode<T> x = last;
-            System.out.println(last);
             for (int i = size - 1; i > index; i--) {
                 x = x.getPrev();
             }
@@ -78,7 +77,7 @@ public class AmazingLinkedList<T> {
         }
     }
 
-    public boolean remove() {
+    public boolean remove(int index) {
         return false;
     }
 
